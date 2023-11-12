@@ -1,43 +1,34 @@
 import java.util.Scanner;
 
-public class BankAccount implements User {
-    Client client ;
+public class BankAccount {
     OTP otp ;
-    private String account ;
+    instapay instapay ;
+    private String number ;
+    private String Cardnumber ;
+    private String password ;
     Scanner input = new Scanner(System.in);
-    @Override
-    public void Signup() {
-        client = new Client() ;
-        otp  = new OTP() ;
-        System.out.print("enter your bank account : ");
-        this.account = input.nextLine();
-        System.out.print("enter your phone number : ");
-        client.setNumber(input.nextLine());
-        System.out.println();
-        boolean check = otp.sendOtp();
-        if (check) {
-            while (true) {
-                System.out.print("enter username : ");
-                String username = input.nextLine();
-                if (client.checkUser(username)){
-                    client.setUserName(input.nextLine());
-                    System.out.println();
-                    System.out.print("please enter complex password : ");
-                    client.setPassword(input.nextLine());
-                    System.out.println();
-                    client.Save();
-                    break;
-                }
-                else {
-                    System.out.println("this username has been taken ");
-                }
-            }
-        }
 
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    @Override
-    public void type() {
-        System.out.println("BankAccount");
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setCardnumber(String cardnumber) {
+       this.Cardnumber = cardnumber;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getCardnumber() {
+        return Cardnumber;
     }
 }
