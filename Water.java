@@ -2,51 +2,27 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Water implements Bills{
+public class Water implements PayBills{
     @Override
-    public int bills(String num) {
-
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("water.txt"));
-            String currentLine = reader.readLine();
-            while (currentLine != null) {
-                if (currentLine.contains(num)) {
-                    int currentbalance = Integer.parseInt(reader.readLine());
-                    return currentbalance;
-                }
-                currentLine = reader.readLine();
-            }
-        }catch (IOException e){
-            System.out.println();
-        }
-        return 0;
+    public double bills(String num , BillsData billsData){
+        return billsData.get(num , this);
     }
 
     @Override
-    public void paybills(String num) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("water.txt"));
-            String currentLine =reader.readLine();
-            List<String> words = new ArrayList<>();
-            while(currentLine != null) {
-                words.add(currentLine);
-                if (currentLine.contains(num)){
-                    words.add("0");
-                }
-                currentLine = reader.readLine();
-            }
-            FileWriter file = new FileWriter("Gas.txt");
-            PrintWriter file2 = new PrintWriter(file);
-            file2.flush();
-            for (String i : words) {
-                file.write(i + "\n");
-            }
-            file.close();
-        }catch (IOException e){
-            System.out.println("error");
+    public void paybills(String num , BillsData billsData,User user,Data Data1, Data Data2) {
+        if (user.getType().equals("BankAccount")){
+            Data1.updateBalance(num , bills(num , billsData) , '-');
+            billsData.update(num , this);
         }
+        else if (user.getType().equals("E-Wallet")){
+            Data2.updateBalance(num , bills(num , billsData) , '-');
+            billsData.update(num , this);
+        }
+    }
+
+    @Override
+    public String type() {
+        return "Water";
     }
 
 

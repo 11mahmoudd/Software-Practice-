@@ -1,44 +1,54 @@
 import java.util.Scanner;
 
 public class wallet implements User{
-    Client client ;
-    OTP otp  ;
+   private String phonenumber ;
+    private String password;
+    double balance ;
     Scanner input = new Scanner(System.in);
-    private String walletacc ;
-    @Override
-    public void Signup() {
-        client = new Client() ;
-        otp  = new OTP() ;
-        System.out.print("enter your wallet account : ");
-        this.walletacc = input.nextLine();
-        System.out.println();
-        System.out.print("enter your phone number : ");
-        client.setNumber(input.nextLine());
-        System.out.println();
-        boolean check = otp.sendOtp();
-        if (check) {
-            while (true) {
 
-                System.out.print("enter username : ");
-                String username = input.nextLine();
-                if (client.checkUser(username)){
-                    client.setUserName(input.nextLine());
-                    System.out.println();
-                    System.out.print("please enter complex password : ");
-                    client.setPassword(input.nextLine());
-                    System.out.println();
-                    client.Save();
-                    break;
-                }
-                else {
-                    System.out.println("this username has been taken ");
-                }
-            }
-        }
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getCardnumber() {
+        return null;
+    }
+
+    @Override
+    public double getbalance() {
+        return balance;
+    }
+
+
+    public String getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhonenumber(String phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 
     @Override
     public void type() {
-        System.out.println("Wallet");
+        System.out.println("--------------------");
+        System.out.println("|    E- Wallet     |");
+        System.out.println("--------------------");
+    }
+    @Override
+    public String getType() {
+        return "E-Wallet";
     }
 }

@@ -4,6 +4,15 @@ public class Client {
     private String number ;
     private String userName;
     private String Password;
+    private String type ;
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
 
     public void setNumber(String number) {
         this.number = number;
@@ -20,14 +29,8 @@ public class Client {
     public String getPassword() {
         return Password;
     }
-
     public String getUserName() {
         return userName;
     }
-    public boolean checkUser(String userName){
-        return false;
-    }
-    public void Save(){
-        File file = new File("users.txt");
-    }
+
 }

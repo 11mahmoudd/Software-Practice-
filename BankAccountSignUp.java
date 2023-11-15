@@ -2,15 +2,16 @@ import java.util.Scanner;
 
 public class BankAccountSignUp implements SignUp{
     OTP otp ;
+    User user ;
     instapaySignup instapay ;
     BankAccount bankAccount ;
     Scanner input = new Scanner(System.in);
     @Override
-    public void Signup() {
+    public void Signup(instapayData instapaydata, Data files ,Data files2) {
         otp  = new OTP() ;
-        Files files = new BankFiles();
         instapay= new instapaySignup();
         bankAccount = new BankAccount();
+        user = new BankAccount();
         while (true){
             System.out.print("enter your Card number : ");
             String num = input.nextLine();
@@ -23,12 +24,12 @@ public class BankAccountSignUp implements SignUp{
                 System.out.print("enter your phone number : ");
                 bankAccount.setNumber( input.nextLine());
                 System.out.println();
-                boolean check2 =  files.checkcorrect(bankAccount.getCardnumber() , bankAccount.getPassword(), bankAccount.getNumber());
+                boolean check2 =  files.checkcorrect(bankAccount);
                 if (check2) {
                     while (true){
                         boolean check = otp.sendOtp();
                         if (check) {
-                            instapay.signup(this,bankAccount.getNumber());
+                            instapay.signup(user,bankAccount.getNumber() ,instapaydata, files , files2);
                             break;
                         }
                         else {
@@ -48,19 +49,5 @@ public class BankAccountSignUp implements SignUp{
             }
         }
 
-    }
-
-    @Override
-    public void type() {
-
-        System.out.println("--------------------");
-        System.out.println("|    BankAccount   |");
-        System.out.println("--------------------");
-    }
-
-    @Override
-    public String getType() {
-
-        return "BankAccount" ;
     }
 }

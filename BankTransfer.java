@@ -3,27 +3,31 @@ import java.util.Scanner;
 public class BankTransfer implements Transfer{
     OTP otp ;
     Scanner input = new Scanner(System.in);
-
-
     @Override
-    public void transfer(String number , Files files) {
+    public void transfer(User user ,User user1,  Data files , Data files2 , boolean c) {
         otp = new OTP();
-        while (true){
+        String number2 = "" ;
+        if (c){
+            number2 = user1.getPhonenumber();
+        }
+        else {
             System.out.print("please enter the phone number that you want to transfer to it :");
-            String number2 = input.nextLine();
+            number2 = input.nextLine();
+        }
+        while (true){
             System.out.println();
-            if (files.checknumber(number2)){
+            if (files.checkcorrect(user)){
                 while (true){
                     System.out.print("please enter the amount of money that you want to transfer :");
                     int wantedbalance = input.nextInt();
-                    int balance = files.getBalance(number);
+                    double balance = files.getBalance(user.getPhonenumber());
                     if (balance > wantedbalance){
                         System.out.println("if u want to continue transfer ");
                         while (true){
                             boolean check = otp.sendOtp();
                             if (check){
-                                files.subtractBalance(number,wantedbalance);
-                                files.updateBalance(number2 , wantedbalance);
+                                files.updateBalance(user.getPhonenumber(),wantedbalance,'-');
+                                files.updateBalance(number2,wantedbalance,'+');
                                 System.out.println("transferred successfully");
                                 break;
                             }
@@ -35,7 +39,8 @@ public class BankTransfer implements Transfer{
                         while (true){
                             boolean check = otp.sendOtp();
                             if (check){
-                                files.updateBalance(number2 , wantedbalance);
+                                files.updateBalance(user.getPhonenumber(),wantedbalance,'-');
+                                files.updateBalance(number2,wantedbalance,'+');
                                 System.out.println("transferred successfully");
                                 break;
                             }
